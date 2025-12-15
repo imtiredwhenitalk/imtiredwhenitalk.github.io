@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aurora UI — Static HTML</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class'
+      };
+    </script>
+    <style>
+      :root { --accent: 195 100% 55%; }
+      .accent { color: hsl(var(--accent)); }
+      .accent-bg { background: hsl(var(--accent)); }
+      .glow { box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 12px 50px -12px hsla(var(--accent), 0.5); }
+      .fade-in { animation: fade 600ms ease-out both; }
+      @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+  </head>
+  <body class="bg-slate-950 text-slate-50 min-h-screen">
+    <div class="fixed inset-0 -z-10">
+      <img src="assets/hero-bg.png" class="h-full w-full object-cover opacity-40" alt="" />
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-slate-950/70 to-slate-950"></div>
+    </div>
+
+    <header class="sticky top-0 z-40 backdrop-blur border-b border-white/10 bg-slate-950/60">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="font-semibold">Aurora UI <span class="text-xs text-slate-400">static</span></div>
+        <div class="flex items-center gap-2">
+          <button id="toggleTheme" class="px-3 py-2 rounded-xl border border-white/10 hover:bg-white/5">Тема</button>
+          <input id="hue" type="range" min="0" max="359" value="195" class="w-40" />
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-16">
+      <section class="grid md:grid-cols-2 gap-10 items-center">
+        <div class="fade-in">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-sm">
+            <span class="accent">●</span> HTML + Tailwind (CDN)
+          </div>
+          <h1 class="mt-5 text-4xl md:text-5xl font-bold leading-tight">
+            Красивий сайт з <span class="accent">кастомізацією</span> та анімаціями
+          </h1>
+          <p class="mt-4 text-lg text-slate-300">
+            Це легка статична версія. Для повного проекту дивись папку <span class="font-semibold">frontend</span>.
+          </p>
+          <div class="mt-7 flex flex-col sm:flex-row gap-3">
+            <a href="#cards" class="accent-bg text-slate-950 font-semibold px-5 py-3 rounded-2xl glow hover:opacity-95">Почати</a>
+            <a href="../frontend" class="px-5 py-3 rounded-2xl border border-white/10 hover:bg-white/5">React версія</a>
+          </div>
+        </div>
+
+        <div class="fade-in">
+          <div class="rounded-3xl border border-white/10 bg-white/5 p-6 glow">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-semibold">Preview</div>
+              <div class="flex gap-1">
+                <span class="h-2.5 w-2.5 rounded-full bg-red-400/80"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-yellow-400/80"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-green-400/80"></span>
+              </div>
+            </div>
+            <img src="assets/illustration.png" class="mt-4 w-full rounded-2xl opacity-95" alt="" />
+          </div>
+        </div>
+      </section>
+
+      <section id="cards" class="mt-16">
+        <h2 class="text-3xl font-bold">Блоки</h2>
+        <div class="mt-8 grid md:grid-cols-3 gap-6">
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+            <div class="font-semibold">Кастомізація</div>
+            <p class="mt-2 text-slate-300">Слайдер hue змінює акцент через CSS змінну.</p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+            <div class="font-semibold">Анімації</div>
+            <p class="mt-2 text-slate-300">Легкі CSS переходи та fade-in.</p>
+          </div>
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+            <div class="font-semibold">Готовий стиль</div>
+            <p class="mt-2 text-slate-300">Градієнти + glass + тіні.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-white/10 bg-slate-950/50">
+      <div class="max-w-6xl mx-auto px-4 py-10 text-sm text-slate-400">
+        © <span id="year"></span> Aurora UI (static demo)
+      </div>
+    </footer>
+
+    <script>
+      const root = document.documentElement;
+      const hue = document.getElementById('hue');
+      const toggle = document.getElementById('toggleTheme');
+      const year = document.getElementById('year');
+
+      year.textContent = new Date().getFullYear();
+
+      const savedHue = Number(localStorage.getItem('aurora:static:hue'));
+      if (Number.isFinite(savedHue)) hue.value = String(savedHue);
+      root.style.setProperty('--accent', `${hue.value} 100% 55%`);
+
+      const savedMode = localStorage.getItem('aurora:static:mode');
+      if (savedMode === 'light') {
+        root.classList.add('light');
+        document.body.classList.remove('bg-slate-950','text-slate-50');
+        document.body.classList.add('bg-white','text-slate-900');
+      }
+
+      hue.addEventListener('input', () => {
+        root.style.setProperty('--accent', `${hue.value} 100% 55%`);
+        localStorage.setItem('aurora:static:hue', hue.value);
+      });
+
+      function setLight(on) {
+        if (on) {
+          localStorage.setItem('aurora:static:mode', 'light');
+          document.body.classList.remove('bg-slate-950','text-slate-50');
+          document.body.classList.add('bg-white','text-slate-900');
+        } else {
+          localStorage.setItem('aurora:static:mode', 'dark');
+          document.body.classList.add('bg-slate-950','text-slate-50');
+          document.body.classList.remove('bg-white','text-slate-900');
+        }
+      }
+      toggle.addEventListener('click', () => {
+        const isLight = document.body.classList.contains('bg-white');
+        setLight(!isLight);
+      });
+    </script>
+  </body>
+</html>
