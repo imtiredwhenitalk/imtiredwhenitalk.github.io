@@ -3,11 +3,12 @@ node_modules/
 .pnp
 .pnp.js
 
-# Build artifacts
+# Build artifacts (keep root-level built files for GitHub Pages)
 frontend/dist/
 frontend/build/
-dist/
-build/
+!index.html
+!assets/
+
 
 # Python
 __pycache__/
