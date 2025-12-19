@@ -6,6 +6,21 @@
 - **Static HTML**: проста версія без React
 - **Presentation**: `.pptx` з описом проекту
 
+## GitHub Pages Deployment
+
+This repository is configured to automatically deploy to GitHub Pages on every push to the `main` branch.
+
+### Enabling GitHub Pages
+
+To enable GitHub Pages for this repository:
+
+1. Go to **Settings** → **Pages** in your GitHub repository
+2. Under **Source**, select **GitHub Actions**
+3. After merging changes to `main`, the workflow will automatically build and deploy the site
+4. Your site will be available at `https://imtiredwhenitalk.github.io/`
+
+The workflow builds the Vite + React frontend from the `frontend/` directory and deploys the built site to GitHub Pages.
+
 ## 1) Запуск (dev)
 В 2-х терміналах:
 
