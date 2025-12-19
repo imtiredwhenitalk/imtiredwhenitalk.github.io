@@ -6,20 +6,33 @@
 - **Static HTML**: проста версія без React
 - **Presentation**: `.pptx` з описом проекту
 
-## GitHub Pages Deployment
+## 🚀 Розгортання на GitHub Pages
 
-This repository is configured to automatically deploy to GitHub Pages on every push to the `main` branch.
+Цей репозиторій налаштований для автоматичного розгортання на GitHub Pages при кожному push в гілку `main`.
 
-### Enabling GitHub Pages
+### ⚠️ Якщо зараз показується README замість сайту
 
-To enable GitHub Pages for this repository:
+Якщо при відкритті `https://imtiredwhenitalk.github.io/` ви бачите README файл замість сайту, виконайте наступні кроки:
 
-1. Go to **Settings** → **Pages** in your GitHub repository
-2. Under **Source**, select **GitHub Actions**
-3. After merging changes to `main`, the workflow will automatically build and deploy the site
-4. Your site will be available at `https://imtiredwhenitalk.github.io/`
+### Налаштування GitHub Pages (крок за кроком)
 
-The workflow builds the Vite + React frontend from the `frontend/` directory and deploys the built site to GitHub Pages.
+**Крок 1:** Злийте цей PR в гілку `main`
+- Натисніть "Merge pull request" для цього PR
+- Це додасть workflow файл та конфігурацію
+
+**Крок 2:** Налаштуйте джерело GitHub Pages
+1. Перейдіть в **Settings** (Налаштування) → **Pages** вашого репозиторію
+2. У розділі **Source** (Джерело), оберіть **GitHub Actions** (не "Deploy from a branch")
+3. Збережіть налаштування
+
+**Крок 3:** Дочекайтесь автоматичного розгортання
+- Після злиття PR, workflow автоматично запуститься
+- Ви можете перевірити прогрес у вкладці **Actions**
+- Через 2-3 хвилини сайт буде доступний на `https://imtiredwhenitalk.github.io/`
+
+### Як це працює
+
+Workflow збирає React + Vite сайт з директорії `frontend/` та розгортає його на GitHub Pages. Кожен push в `main` автоматично оновлює сайт.
 
 ## 1) Запуск (dev)
 В 2-х терміналах:
